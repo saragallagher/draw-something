@@ -5,11 +5,13 @@ import './App.css'
 
 class Explore extends Component {
   state = {
+    loading: true,
     users: []
   }
   componentDidMount(){
     clientAuth.getAllUsers().then(res => {
       this.setState({
+        loading: false,
         users: res.data.drawings
       })
     })
@@ -28,8 +30,10 @@ class Explore extends Component {
     <div>
       <h1>Explore All Drawings</h1>
       <hr/>
-      
-      {userDrawings}
+      {this.state.loading
+        ?<h1>Loading...</h1>
+        :userDrawings
+      }
     </div>
 
     )

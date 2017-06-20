@@ -13,7 +13,8 @@ class CanvasLoggedIn extends Component{
 			blue: 0,
 			currentUser: null,
 			editing: '',
-			currentEditing: {}
+			currentEditing: {},
+			loading: true
 		}
 	}
 	////////////////////////////////////////////////////////////////
@@ -30,7 +31,8 @@ class CanvasLoggedIn extends Component{
 		clientAuth.getDrawing().then(res => {
 			this.setState({
 				drawings: res.data,
-				currentUser: currentUser
+				currentUser: currentUser,
+				loading: false
 			})
 		})
 	}
@@ -201,7 +203,11 @@ class CanvasLoggedIn extends Component{
 
 			<h2>My Drawings: </h2>
 			<hr/>
-			{this.state.drawings.length === 0 ? "Oh no! You don't have any drawings yet, bummer.": drawings}
+			{this.state.loading
+				?<h1> Loading... </h1>
+				:this.state.drawings.length === 0 ? "Oh no! You don't have any drawings yet, bummer.": drawings
+			}
+
 
 			</div>
 			)

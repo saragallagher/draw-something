@@ -6,7 +6,8 @@ import './App.css'
 class ExploreLoggedIn extends Component {
   state = {
     users: [],
-    currentUser: null
+    currentUser: null,
+    loading: true
   }
 
   componentDidMount(){
@@ -15,11 +16,12 @@ class ExploreLoggedIn extends Component {
     clientAuth.getAllUsers().then(res => {
       this.setState({
         users: res.data.drawings,
-        currentUser: currentUser
+        currentUser: currentUser,
+        loading: false
       })
     })
   }
-  
+
   render(){
     const exceptCurrent = this.state.users.filter(user => {
       return user.user._id !== this.state.currentUser._id
@@ -38,7 +40,9 @@ class ExploreLoggedIn extends Component {
     <div>
       <h1>Explore All Drawings</h1>
       <hr/>
-      {userDrawings}
+      {this.state.loading
+        ?<h1> Loading... </h1>
+        :userDrawings}
     </div>
     )
   }
