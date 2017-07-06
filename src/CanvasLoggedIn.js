@@ -151,11 +151,14 @@ class CanvasLoggedIn extends Component{
 	render(){
 		////////////////////////////////////////////////////////////////
 		const drawings = this.state.drawings.map((drawing, i) => {
+			var editDraw = <p><button onClick={this._setEditDrawing.bind(this, drawing)}>Edit</button><button onClick={this._deleteDrawing.bind(this, drawing._id)}>Delete</button></p>
 			return(
 				<div key={i} className="Canvas-Images" >
 				<img  src={drawing.url} alt="canvas-drawing" />
-				<button onClick={this._deleteDrawing.bind(this, drawing._id)}>Delete</button>
-				<button onClick={this._setEditDrawing.bind(this, drawing)}>Edit</button>
+				{this.state.editing
+				? <p></p>
+				:editDraw
+				}
 			</div>
 			)
 		})
